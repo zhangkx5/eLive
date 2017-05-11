@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="bg_grid">#dac49d</color>
+    <color name="black">#000000</color>
+    <color name="pup">#ec2fec</color>
+    <color name="recycler">#fc966e</color>
+    <color name="white">#ffffff</color>
+    <color name="content">#ae3d39</color>
+    <color name="gray">#707070</color>
+    <color name="touming">#00b6dced</color>
+</resources>
