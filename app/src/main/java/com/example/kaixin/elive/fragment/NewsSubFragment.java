@@ -1,9 +1,11 @@
 package com.example.kaixin.elive.fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.activity.MainActivity;
+import com.example.kaixin.elive.activity.NewsDetailsActivity;
 import com.example.kaixin.elive.adapter.NewsAdapter;
 import com.example.kaixin.elive.bean.NewsBean;
 
@@ -42,9 +45,11 @@ public class NewsSubFragment extends Fragment {
     public static final int NEWS_TYPE_ECONOMICS = 4;
 
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private NewsAdapter newsAdapter;
     private int NewsType = 0;
     private String URLs ="http://api.dagoogle.cn/news/get-news?tableNum=1&page=1&pagesize=";
+    private int lastVisibleItem;
     private int pageNumber = 1;
 
     public static NewsSubFragment newInstance(int type) {
@@ -70,6 +75,35 @@ public class NewsSubFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        final LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE &&
+                        lastVisibleItem + 1 == newsAdapter.getItemCount()) {
+                    newsAdapter.changeMoreStatus(NewsAdapter.LOADING_MORE);
+                    pageNumber += 1;
+                    URLs ="http://api.dagoogle.cn/news/get-news?tableNum=1&page="+pageNumber+"&pagesize=10";
+                    new NewsAsyncTask().execute(URLs);
+                }
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = linearManager.findLastVisibleItemPosition();
+            }
+        });
+
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshNews();
+            }
+        });
         switch(NewsType) {
             case NEWS_TYPE_TOP:
                 URLs ="http://api.dagoogle.cn/news/get-news?tableNum=1&page="+pageNumber+"&pagesize=10";
@@ -151,14 +185,36 @@ public class NewsSubFragment extends Fragment {
         @Override
         protected void onPostExecute(List<NewsBean>nesBeanList) {
             super.onPostExecute(nesBeanList);
-            newsAdapter = new NewsAdapter(NewsSubFragment.this.getActivity(), nesBeanList);
-            newsAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position, NewsBean newsBean) {
-                }
-            });
-            recyclerView.setAdapter(newsAdapter);
-
+            if (newsAdapter != null && lastVisibleItem + 1 == newsAdapter.getItemCount()) {
+                newsAdapter.addMoreItem(nesBeanList);
+                newsAdapter.notifyDataSetChanged();
+            } else {
+                newsAdapter = new NewsAdapter(NewsSubFragment.this.getActivity(), nesBeanList);
+                newsAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position, NewsBean newsBean) {
+                        Intent intent = new Intent(MainActivity.getAppContext(), NewsDetailsActivity.class);
+                        intent.putExtra("news", newsBean);
+                        startActivity(intent);
+                    }
+                });
+                recyclerView.setAdapter(newsAdapter);
+            }
         }
+    }
+    private void refreshNews() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new NewsAsyncTask().execute(URLs);
+        newsAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

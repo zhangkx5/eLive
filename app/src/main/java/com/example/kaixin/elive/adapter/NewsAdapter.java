@@ -20,7 +20,11 @@ import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    public static final int PULLUP_LOAD_MORE = 0;
+    public static final int LOADING_MORE = 1;
+    private int load_more_status = 0;
     private static final int TYPE_ITEM = 0;
+    private static final int TYPE_FOOTER = 1;
 
     private List<NewsBean> mlist;
     private LayoutInflater minflater;
@@ -36,6 +40,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             content = (TextView)view.findViewById(R.id.newsDetails);
         }
     }
+    static class FootViewHolder extends RecyclerView.ViewHolder {
+        private TextView foot_view_item_tv;
+        public FootViewHolder(View view) {
+            super(view);
+            foot_view_item_tv = (TextView)view.findViewById(R.id.foot_view);
+        }
+    }
     public NewsAdapter(Context context, List<NewsBean> data) {
         mlist = data;
         minflater = LayoutInflater.from(context);
@@ -48,12 +59,21 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     .inflate(R.layout.item_news, parent, false);
             final ViewHolder holder = new ViewHolder(view);
             return holder;
+        } else if (viewType == TYPE_FOOTER) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.recycle_foot, parent, false);
+            FootViewHolder footViewHolder = new FootViewHolder(view);
+            return footViewHolder;
         }
         return null;
     }
     @Override
     public int getItemViewType(int position) {
-        return TYPE_ITEM;
+        if (position + 1 == getItemCount()) {
+            return TYPE_FOOTER;
+        } else {
+            return TYPE_ITEM;
+        }
     }
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
@@ -63,8 +83,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ViewHolder)holder).content.setText(newsBean.getNewsDigest());
             ((ViewHolder)holder).iconimage.setTag(newsBean.getTopImg());
             ((ViewHolder)holder).iconimage.setImageResource(R.mipmap.iv_funpic);
-            new ImageTask(((ViewHolder)holder).iconimage, newsBean.getTopImg())
-                    .execute(newsBean.getTopImg());
+            new ImageTask(((ViewHolder)holder).iconimage, newsBean.getTopImg()).execute(newsBean.getTopImg());
 
             if (onItemClickListener != null) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -83,11 +102,21 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 });
             }
+        } else if (holder instanceof FootViewHolder) {
+            FootViewHolder footViewHolder = (FootViewHolder)holder;
+            switch (load_more_status) {
+                case PULLUP_LOAD_MORE:
+                    footViewHolder.foot_view_item_tv.setText("上拉加载");
+                    break;
+                case LOADING_MORE:
+                    footViewHolder.foot_view_item_tv.setText("正在加载...");
+                    break;
+            }
         }
     }
     @Override
     public int getItemCount() {
-        return mlist.size();
+        return mlist.size()+1;
     }
     public interface OnItemClickListener {
         void onItemClick(View view, int position, NewsBean newsBean);
@@ -99,5 +128,16 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private OnItemLongClickListener onItemLongClickListener;
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
+    public void addMoreItem(List<NewsBean> newList) {
+        mlist.addAll(newList);
+        notifyDataSetChanged();
+    }
+    public void changeMoreStatus(int status) {
+        load_more_status = status;
+        notifyDataSetChanged();
     }
 }
