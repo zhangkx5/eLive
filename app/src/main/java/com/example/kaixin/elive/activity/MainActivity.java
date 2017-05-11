@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.kaixin.elive.R;
+import com.example.kaixin.elive.fragment.NewsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_news) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new NewsFragment()).commit();
         } else if (id == R.id.nav_weather) {
 
         } else if (id == R.id.nav_jokes) {
