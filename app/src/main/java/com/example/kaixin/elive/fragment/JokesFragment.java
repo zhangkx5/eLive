@@ -1,8 +1,10 @@
 package com.example.kaixin.elive.fragment;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,6 +44,10 @@ public class JokesFragment extends Fragment {
     String apikey = "e0e928f4afcc0997f574aece6c351bde";
     private RecyclerView jokeslv;
     private JokesAdapter jokesAdapter;
+    private int lastVisibleItem;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private int pageNumber = 1;
+    private Context mContext;
     private ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +57,35 @@ public class JokesFragment extends Fragment {
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.getAppContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         jokeslv.setLayoutManager(linearLayoutManager);
+
+        jokeslv.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE &&
+                        lastVisibleItem + 1 == jokesAdapter.getItemCount()) {
+                    pageNumber += 1;
+                    String URLs ="http://japi.juhe.cn/joke/content/text.from?key=" + apikey +
+                            "&page="+pageNumber+"&pagesize=10";
+                    new JokesAsyncTask().execute(URLs);
+                }
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+            }
+        });
+
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshJokes();
+            }
+        });
+
 
         Map params = new HashMap();
         params.put("page", "");
@@ -130,8 +165,28 @@ public class JokesFragment extends Fragment {
         @Override
         protected void onPostExecute(List<JokesBean> jokesBeanList) {
             super.onPostExecute(jokesBeanList);
-            jokesAdapter = new JokesAdapter(MainActivity.getAppContext(), jokesBeanList);
-            jokeslv.setAdapter(jokesAdapter);
+            if (jokesAdapter != null && lastVisibleItem+1 == jokesAdapter.getItemCount()) {
+                jokesAdapter.addMoreJokes(jokesBeanList);
+                jokesAdapter.notifyDataSetChanged();
+            } else {
+                jokesAdapter = new JokesAdapter(MainActivity.getAppContext(), jokesBeanList);
+                jokeslv.setAdapter(jokesAdapter);
+            }
         }
+    }
+    private void refreshJokes() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new JokesAsyncTask().execute(url);
+        jokesAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

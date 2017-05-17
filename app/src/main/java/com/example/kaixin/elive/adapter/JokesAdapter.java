@@ -19,6 +19,7 @@ import java.util.List;
 public class JokesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<JokesBean> mlist;
     private static final int TYPE_ITEM = 0;
+    private static final int TYPE_FOOTER = 1;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView content;
@@ -29,17 +30,26 @@ public class JokesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ptime = (TextView)view.findViewById(R.id.ptime);
         }
     }
-
+    static class FootViewHolder extends RecyclerView.ViewHolder {
+        private TextView foot_view_item_tv;
+        public FootViewHolder(View view) {
+            super(view);
+            foot_view_item_tv = (TextView)view.findViewById(R.id.foot_view);
+        }
+    }
     public JokesAdapter(Context context, List<JokesBean> data) {
         mlist = data;
     }
     @Override
     public int getItemCount() {
-        return mlist.size();
+        return mlist.size()+1;
     }
 
     @Override
     public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()) {
+            return TYPE_FOOTER;
+        }
         return TYPE_ITEM;
     }
 
@@ -48,6 +58,10 @@ public class JokesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (viewType == TYPE_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_jokes, parent, false);
             ViewHolder holder = new ViewHolder(view);
+            return holder;
+        } else if (viewType == TYPE_FOOTER) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_foot, parent, false);
+            FootViewHolder holder = new FootViewHolder(view);
             return holder;
         }
         return null;
@@ -59,5 +73,12 @@ public class JokesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((ViewHolder)holder).content.setText(jokesBean.getJokesContent());
             ((ViewHolder)holder).ptime.setText(jokesBean.getJokesPtime());
         }
+        if (holder instanceof FootViewHolder) {
+            ((FootViewHolder)holder).foot_view_item_tv.setText("正在加载");
+        }
+    }
+    public void addMoreJokes(List<JokesBean> data) {
+        mlist.addAll(data);
+        notifyDataSetChanged();
     }
 }
