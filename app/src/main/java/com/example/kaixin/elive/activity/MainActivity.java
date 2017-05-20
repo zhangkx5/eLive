@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.fragment.JokesFragment;
+import com.example.kaixin.elive.fragment.DiaryFragment;
 import com.example.kaixin.elive.fragment.NewsFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -29,15 +30,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mContext = getApplicationContext();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -96,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_funpic) {
 
         } else if (id == R.id.nav_diary) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new DiaryFragment()).commit();
         } else if (id == R.id.nav_mark) {
 
         }
