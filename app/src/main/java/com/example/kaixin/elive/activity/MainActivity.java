@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.kaixin.elive.R;
+import com.example.kaixin.elive.fragment.JokesFragment;
 import com.example.kaixin.elive.fragment.DiaryFragment;
 import com.example.kaixin.elive.fragment.NewsFragment;
 
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_weather) {
 
         } else if (id == R.id.nav_jokes) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new JokesFragment()).commit();
         } else if (id == R.id.nav_funpic) {
 
         } else if (id == R.id.nav_diary) {
