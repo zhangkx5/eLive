@@ -18,6 +18,7 @@ import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.fragment.JokesFragment;
 import com.example.kaixin.elive.fragment.DiaryFragment;
 import com.example.kaixin.elive.fragment.NewsFragment;
+import com.example.kaixin.elive.fragment.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_news) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new NewsFragment()).commit();
         } else if (id == R.id.nav_weather) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new WeatherFragment()).commit();
         } else if (id == R.id.nav_jokes) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new JokesFragment()).commit();
         } else if (id == R.id.nav_funpic) {
