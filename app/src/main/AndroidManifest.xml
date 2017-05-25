@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".activity.NewsDetailsActivity"/>
         <activity android:name=".activity.DiaryActivity"/>
+        <activity android:name=".activity.MarkerActivity"/>
     </application>
 
 </manifest>

@@ -39,17 +39,14 @@ import static android.content.ContentValues.TAG;
 public class DiaryFragment extends Fragment {
 
     private ListView diarylv;
-    private Context mContext;
     private FloatingActionButton fab;
     private DiaryAdapter diaryAdapter;
-    private boolean isCreate = false;
     private static final String DATABASE_NAME = "myApp.db";
     private static final String DIARY_SQL_SELECTALL = "select * from diary";
-    private static final String DIARY_SQL_SELECTONE = "select filename from diary where time = ?";
     private static final String DIARY_SQL_DELETE = "delete from diary where time = ?";
 
     private List<DiaryBean> diaryBeanList;
-    private MyDB myDB = new MyDB(MainActivity.getAppContext(), DATABASE_NAME, null, 1);
+    private MyDB myDB = new MyDB(MainActivity.getAppContext(), DATABASE_NAME, null, 2);
 
     @Override
     public void onResume() {
