@@ -20,6 +20,7 @@ import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.Utils.MyDB;
 import com.example.kaixin.elive.activity.MainActivity;
 import com.example.kaixin.elive.activity.MarkerActivity;
+import com.example.kaixin.elive.activity.MarkerDetailsActivity;
 import com.example.kaixin.elive.adapter.MarkerAdapter;
 import com.example.kaixin.elive.bean.MarkerBean;
 
@@ -40,6 +41,7 @@ public class MarkerFragment extends Fragment {
 
     private static final String DATABASE_NAME = "myApp.db";
     private static final String MARKER_SQL_SELECTALL = "select * from marker";
+    private static final String MARKER_SQL_SELECTONE = "select event from marker where ctime = ?";
     private static final String MARKER_SQL_DELETE = "delete from marker where event = ?";
 
     @Override
@@ -65,11 +67,22 @@ public class MarkerFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        marklv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MarkerBean markerBean = markerAdapter.getItem(i);
+                TextView day = (TextView)view.findViewById(R.id.mark_day);
+                Intent intent = new Intent(MainActivity.getAppContext(), MarkerDetailsActivity.class);
+                intent.putExtra("markday", markerBean);
+                intent.putExtra("long", day.getText().toString());
+                startActivity(intent);
+            }
+        });
         marklv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int pos, long l) {
-                final TextView markday_select_date = (TextView)view.findViewById(R.id.mark_day);
-                final TextView markday_select_event = (TextView)view.findViewById(R.id.mark_event);
+                final TextView marker_select_date = (TextView)view.findViewById(R.id.mark_day);
+                final TextView marker_select_event = (TextView)view.findViewById(R.id.mark_event);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("是否删除？");
                 builder.setMessage("此操作不可逆！");
@@ -84,7 +97,7 @@ public class MarkerFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         SQLiteDatabase dbDelete = myDB.getWritableDatabase();
                         dbDelete.execSQL(MARKER_SQL_DELETE, new Object[] {
-                                markday_select_event.getText().toString()});
+                                marker_select_event.getText().toString()});
                         dbDelete.close();
                         markerBeanList.remove(pos);
                         markerAdapter.notifyDataSetChanged();
