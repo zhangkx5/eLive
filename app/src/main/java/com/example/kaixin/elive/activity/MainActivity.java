@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.fragment.JokesFragment;
 import com.example.kaixin.elive.fragment.DiaryFragment;
+import com.example.kaixin.elive.fragment.MarkerFragment;
 import com.example.kaixin.elive.fragment.NewsFragment;
 import com.example.kaixin.elive.fragment.WeatherFragment;
 
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_diary) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new DiaryFragment()).commit();
         } else if (id == R.id.nav_mark) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new MarkerFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

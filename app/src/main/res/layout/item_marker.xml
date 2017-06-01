@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:background="#FFFFFF"
+    android:paddingTop="40dp"
+    android:paddingBottom="40dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
+
+    <TextView
+        android:id="@+id/mark_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="event"
+        android:textColor="#000000"
+        android:textSize="25sp"/>
+    <TextView
+        android:id="@+id/mark_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/mark_event"
+        android:layout_marginLeft="10dp"
+        android:text="已经/还有"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/mark_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="25sp"
+        android:textColor="#000000"
+        android:text="1000天"/>
+</RelativeLayout>
