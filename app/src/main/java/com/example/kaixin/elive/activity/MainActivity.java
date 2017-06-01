@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new NewsFragment()).commit();
     }
 
     @Override
@@ -87,8 +89,6 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new WeatherFragment()).commit();
         } else if (id == R.id.nav_jokes) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new JokesFragment()).commit();
-        } else if (id == R.id.nav_funpic) {
-
         } else if (id == R.id.nav_diary) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new DiaryFragment()).commit();
         } else if (id == R.id.nav_mark) {

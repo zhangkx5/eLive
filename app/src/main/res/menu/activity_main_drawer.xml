@@ -14,10 +14,6 @@
             android:id="@+id/nav_jokes"
             android:icon="@mipmap/ic_jokes"
             android:title="笑话" />
-        <item
-            android:id="@+id/nav_funpic"
-            android:icon="@mipmap/ic_funpic"
-            android:title="趣图" />
     </group>
 
     <item android:title="个人">
