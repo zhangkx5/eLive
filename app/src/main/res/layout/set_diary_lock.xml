@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include
+        layout="@layout/toolbar_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pas_old"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:hint="@null">
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="原密码"
+                android:inputType="textPassword"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pas_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:hint="@null">
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="新密码"
+                android:inputType="textPassword"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pas_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:hint="@null">
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="确认密码"
+                android:inputType="textPassword"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/abandon"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="15dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:background="@color/colorPrimary"
+                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:text="清除"
+                android:textSize="25sp"
+                android:textAllCaps="false"/>
+            <Button
+                android:id="@+id/save"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:background="@color/colorPrimary"
+                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:text="确定"
+                android:textSize="25sp"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

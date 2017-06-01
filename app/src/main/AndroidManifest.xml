@@ -27,6 +27,10 @@
         <activity android:name=".activity.DiaryActivity"/>
         <activity android:name=".activity.MarkerActivity"/>
         <activity android:name=".activity.MarkerDetailsActivity"/>
+        <activity android:name=".activity.DiaryActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activity.SetDiaryLock"
+                  android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

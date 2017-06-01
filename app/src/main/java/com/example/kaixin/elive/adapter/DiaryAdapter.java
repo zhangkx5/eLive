@@ -25,31 +25,35 @@ public class DiaryAdapter extends BaseAdapter {
         mlist = data;
         minflater = LayoutInflater.from(context);
     }
+
     @Override
     public Object getItem(int position) {
         return mlist.get(position);
     }
+
     @Override
     public int getCount() {
         return mlist.size();
     }
+
     @Override
     public long getItemId(int position) {
         return position;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         DiaryAdapter.ViewHolder viewHolder;
         if (convertView == null){
             viewHolder = new DiaryAdapter.ViewHolder();
-            convertView = minflater.inflate(R.layout.item_diary,null);
+            convertView = minflater.inflate(R.layout.item_diary, null);
             viewHolder.content = (TextView) convertView.findViewById(R.id.diary_content);
-            viewHolder.time = (TextView)convertView.findViewById(R.id.diary_time);
-            viewHolder.city = (TextView)convertView.findViewById(R.id.diary_city);
-            viewHolder.weather = (TextView)convertView.findViewById(R.id.diary_weather);
+            viewHolder.time = (TextView) convertView.findViewById(R.id.diary_time);
+            viewHolder.city = (TextView) convertView.findViewById(R.id.diary_city);
+            viewHolder.weather = (TextView) convertView.findViewById(R.id.diary_weather);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (DiaryAdapter.ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (DiaryAdapter.ViewHolder) convertView.getTag();
         }
         viewHolder.content.setText(mlist.get(position).getContent());
         viewHolder.time.setText(mlist.get(position).getTime());
@@ -58,7 +62,8 @@ public class DiaryAdapter extends BaseAdapter {
 
         return convertView;
     }
-    class  ViewHolder{
+
+    class ViewHolder {
         public TextView content;
         public TextView time;
         public TextView city;

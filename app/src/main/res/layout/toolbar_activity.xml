@@ -23,6 +23,7 @@
                 android:src="@mipmap/ic_back"/>
 
             <TextView
+                android:id="@+id/ib_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -39,6 +40,16 @@
                 android:layout_alignParentEnd="true"
                 android:background="?attr/colorPrimary"
                 android:src="@mipmap/ic_done"/>
+
+            <ImageButton
+                android:id="@+id/ib_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/colorPrimary"
+                android:visibility="gone"
+                android:src="@mipmap/ic_edit"/>
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>

@@ -9,6 +9,7 @@ public class DiaryBean {
     private String time;
     private String city;
     private String weather;
+
     public String getContent() {
         return content;
     }
@@ -21,6 +22,7 @@ public class DiaryBean {
     public String getWeather() {
         return weather;
     }
+
     public void setContent(String content) {
         this.content = content;
     }
