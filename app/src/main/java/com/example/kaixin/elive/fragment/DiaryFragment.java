@@ -1,25 +1,30 @@
 package com.example.kaixin.elive.fragment;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kaixin.elive.Utils.MyDB;
 import com.example.kaixin.elive.activity.DiaryActivity;
 import com.example.kaixin.elive.activity.MainActivity;
+import com.example.kaixin.elive.activity.SetDiaryLock;
 import com.example.kaixin.elive.adapter.DiaryAdapter;
 import com.example.kaixin.elive.bean.DiaryBean;
 import com.example.kaixin.elive.R;
@@ -30,7 +35,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * Created by baoanj on 2017/5/12.
@@ -39,10 +45,17 @@ import static android.content.ContentValues.TAG;
 public class DiaryFragment extends Fragment {
 
     private ListView diarylv;
-    private Context mContext;
     private FloatingActionButton fab;
+    private LinearLayout ll_diary_pass;
+    private EditText et_diary_pass;
+    private ImageButton ib_diary_ok;
+    private TextView set_diary_pass;
+
     private DiaryAdapter diaryAdapter;
-    private boolean isCreate = false;
+    private SharedPreferences pref;
+    private String lock;
+    private Boolean hasSetLock;
+
     private static final String DATABASE_NAME = "myApp.db";
     private static final String DIARY_SQL_SELECTALL = "select * from diary";
     private static final String DIARY_SQL_SELECTONE = "select filename from diary where time = ?";
@@ -58,12 +71,17 @@ public class DiaryFragment extends Fragment {
         diaryAdapter = new DiaryAdapter(MainActivity.getAppContext(), diaryBeanList);
         diarylv.setAdapter(diaryAdapter);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
-        diarylv = (ListView)view.findViewById(R.id.diarylv);
-        fab = (FloatingActionButton)view.findViewById(R.id.fab);
+        diarylv = (ListView) view.findViewById(R.id.diarylv);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        ll_diary_pass = (LinearLayout) view.findViewById(R.id.pass_gone);
+        et_diary_pass = (EditText) view.findViewById(R.id.diary_pass);
+        ib_diary_ok = (ImageButton) view.findViewById(R.id.diary_ok);
+        set_diary_pass = (TextView) view.findViewById(R.id.set_diary_pass);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +108,7 @@ public class DiaryFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         diarylv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int pos, long l) {
@@ -118,8 +137,39 @@ public class DiaryFragment extends Fragment {
                 return true;
             }
         });
+
+        ib_diary_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pref = MainActivity.getAppContext().getSharedPreferences("diaryLock", MODE_PRIVATE);
+                lock = pref.getString("lock", "");
+                hasSetLock = pref.getBoolean("hasSetLock", false);
+
+                if (TextUtils.isEmpty(et_diary_pass.getText().toString())) {
+                    Toast.makeText(MainActivity.getAppContext(), "日记锁不能为空", Toast.LENGTH_SHORT).show();
+                } else if (et_diary_pass.getText().toString().equals(lock)) {
+                    ll_diary_pass.setVisibility(View.GONE);
+                    diarylv.setVisibility(View.VISIBLE);
+                    fab.setVisibility(View.VISIBLE);
+                } else if (!hasSetLock) {
+                    Toast.makeText(MainActivity.getAppContext(), "你还没有设置日记锁", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.getAppContext(), "日记锁错误", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        set_diary_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.getAppContext(), SetDiaryLock.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
+
     private void init() {
         diaryBeanList  = new ArrayList<>();
         SQLiteDatabase dbRead = myDB.getReadableDatabase();

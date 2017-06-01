@@ -6,8 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -31,10 +32,9 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  */
 
 public class DiaryActivity extends SwipeBackActivity implements View.OnClickListener {
-    private ImageButton ib_back, ib_done;
-    private TextView diary_time, diary_weather, diary_city;
-    private EditText diary_content;
-    private Toolbar toolbar;
+    private ImageButton ib_back, ib_done, ib_edit;
+    private TextView diary_time, diary_weather, diary_city, ib_title, diary_content_tv;
+    private EditText diary_content_et;
     private Bundle bundle;
     private static Context mContext;
     private boolean LookAndUpdate;
@@ -42,9 +42,6 @@ public class DiaryActivity extends SwipeBackActivity implements View.OnClickList
     private static final String DATABASE_NAME = "myApp.db";
     private static final String SQL_INSERT = "insert into diary (filename, time, city, weather) values (?, ?, ?, ?)";
     private static final String DIARY_SQL_SELECTONE = "select filename from diary where time = ?";
-
-//    private DiaryPresenterImple diaryPresenterImple;
-
 
     private ArrayList<String> response;
     private final int UPDATE_CONTENT = 0;
@@ -78,13 +75,7 @@ public class DiaryActivity extends SwipeBackActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
-
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
         initViews();
-//        diaryPresenterImple = new DiaryPresenterImple(this);
-
     }
 
     @Override
@@ -94,10 +85,15 @@ public class DiaryActivity extends SwipeBackActivity implements View.OnClickList
                 DiaryActivity.this.finish();
                 break;
             case R.id.ib_done:
-                addDiary(LookAndUpdate, "Diary_"+strDate,strDate,
-                        strCity, strWeather,diary_content.getText().toString());
-                DiaryActivity.this.finish();
+                addDiary(LookAndUpdate, "Diary_" + strDate, strDate,
+                        strCity, strWeather, diary_content_et.getText().toString());
                 break;
+            case R.id.ib_edit:
+                diary_content_et.setVisibility(View.VISIBLE);
+                diary_content_tv.setVisibility(View.GONE);
+                ib_done.setVisibility(View.VISIBLE);
+                ib_edit.setVisibility(View.GONE);
+                ib_title.setText("修改日记");
             default:
                 break;
         }
@@ -114,6 +110,7 @@ public class DiaryActivity extends SwipeBackActivity implements View.OnClickList
             if (!Update) {
                 addDiaryDB(filename, strDate, strCity, strWeather);
             }
+            DiaryActivity.this.finish();
         }
     }
 
@@ -153,7 +150,10 @@ public class DiaryActivity extends SwipeBackActivity implements View.OnClickList
         mContext = getApplicationContext();
         ib_back = (ImageButton)findViewById(R.id.ib_back);
         ib_done = (ImageButton)findViewById(R.id.ib_done);
-        diary_content = (EditText)findViewById(R.id.diary_content);
+        ib_edit = (ImageButton)findViewById(R.id.ib_edit);
+        ib_title = (TextView) findViewById(R.id.ib_title);
+        diary_content_et = (EditText)findViewById(R.id.diary_content_et);
+        diary_content_tv = (TextView) findViewById(R.id.diary_content_tv);
         diary_city = (TextView)findViewById(R.id.diary_city);
         diary_time = (TextView)findViewById(R.id.diary_time);
         diary_weather = (TextView)findViewById(R.id.diary_weather);
@@ -165,7 +165,15 @@ public class DiaryActivity extends SwipeBackActivity implements View.OnClickList
             strWeather = bundle.getString("weather");
             strDate = bundle.getString("time");
             strContent = bundle.getString("content");
-            diary_content.setText(strContent);
+
+            diary_content_et.setVisibility(View.GONE);
+            diary_content_tv.setVisibility(View.VISIBLE);
+            diary_content_et.setText(strContent);
+            diary_content_tv.setText(strContent);
+
+            ib_done.setVisibility(View.GONE);
+            ib_edit.setVisibility(View.VISIBLE);
+            ib_title.setText("日记");
         } else {
             LookAndUpdate = false;
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
@@ -175,20 +183,26 @@ public class DiaryActivity extends SwipeBackActivity implements View.OnClickList
             strCity = "广州";
             PackageManager pm = getPackageManager();
             boolean permission = (PackageManager.PERMISSION_GRANTED ==
-                    pm.checkPermission("android.permission.ACCESS_FINE_LOCATION", "com.example.kaixin.kelseyapp"));
+                    pm.checkPermission("android.permission.ACCESS_FINE_LOCATION", "com.example.kaixin.elive"));
             if (permission) {
                 LocationUtils.getCNBylocation(DiaryActivity.this);
                 strCity = LocationUtils.cityName;
             }
             postRequest();
-            diary_city.setVisibility(View.GONE);
-            diary_weather.setVisibility(View.GONE);
+
+            diary_content_et.setVisibility(View.VISIBLE);
+            diary_content_tv.setVisibility(View.GONE);
+
+            ib_done.setVisibility(View.VISIBLE);
+            ib_edit.setVisibility(View.GONE);
+            ib_title.setText("写日记");
         }
-        diary_time.setText(strDate);
+        diary_time.setText(strDate.substring(0, strDate.indexOf("日") + 1));
         diary_weather.setText(strWeather);
         diary_city.setText(strCity);
 
         ib_back.setOnClickListener(this);
         ib_done.setOnClickListener(this);
+        ib_edit.setOnClickListener(this);
     }
 }
