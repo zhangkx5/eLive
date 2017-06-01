@@ -128,7 +128,7 @@ public class DiaryActivity extends SwipeBackActivity implements View.OnClickList
         }
     }
     public void addDiaryDB(String filename, String strDate, String strCity, String strWeather) {
-        MyDB myDB = new MyDB(DiaryActivity.getAppContext(), DATABASE_NAME, null, 1);
+        MyDB myDB = new MyDB(DiaryActivity.getAppContext(), DATABASE_NAME, null, 2);
         SQLiteDatabase dbWrite = myDB.getWritableDatabase();
         dbWrite.execSQL(SQL_INSERT, new Object[]{filename, strDate, strCity, strWeather});
         dbWrite.close();
