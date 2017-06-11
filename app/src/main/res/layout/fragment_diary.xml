@@ -29,12 +29,8 @@
                 android:id="@+id/diary_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
-                android:layout_marginTop="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:background="@drawable/bg_btn_forward"
+                android:layout_margin="5dp"
                 android:src="@mipmap/ic_forward"/>
         </LinearLayout>
 

@@ -42,9 +42,7 @@ import java.util.regex.Pattern;
  */
 
 public class WeatherFragment extends Fragment {
-    private EditText City;
     private TextView name, time_update, wendu, shidu, air, degrees, wind;
-    private Button Search;
     private ListView listView;
     private LinearLayout linearLayout;
     private RecyclerView mRecyclerView;
@@ -99,9 +97,7 @@ public class WeatherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
-        City = (EditText)view.findViewById(R.id.et_city);
         name = (TextView)view.findViewById(R.id.name_search);
-        Search = (Button)view.findViewById(R.id.btn_search);
         listView = (ListView)view.findViewById(R.id.zs_list);
         time_update = (TextView)view.findViewById(R.id.time_update);
         linearLayout = (LinearLayout)view.findViewById(R.id.nowlayout);
@@ -118,16 +114,6 @@ public class WeatherFragment extends Fragment {
 
         postRequest();
 
-        Search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isNetworkAvailable(getActivity())) {
-                    postRequest();
-                } else {
-                    Toast.makeText(MainActivity.getAppContext(), "当前网络不可用", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         return view;
     }
     private void postRequest() {

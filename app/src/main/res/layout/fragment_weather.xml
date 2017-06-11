@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
               android:id="@+id/activity_main"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:background="@drawable/bg_weather"
-              android:paddingTop="5dp">
+              android:paddingTop="5dp"
+              android:focusable="true"
+              android:focusableInTouchMode="true">
 
 
     <ScrollView
@@ -16,54 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:text="Welcome to the Weather Search!"
-                android:textSize="20sp"/>
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:id="@+id/tv_city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:text="城市名:"
-                    android:visibility="invisible"
-                    android:textAllCaps="false"
-                    android:textSize="18sp"/>
-                <Button
-                    android:id="@+id/btn_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:text="查询"
-                    android:textAllCaps="false"
-                    android:textSize="18sp"/>
-                <EditText
-                    android:id="@+id/et_city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/tv_city"
-                    android:layout_toLeftOf="@id/btn_search"
-                    android:visibility="invisible"
-                    android:text="广州"
-                    android:maxLines="1"
-                    android:textSize="18sp"/>
-
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -127,54 +80,6 @@
                     android:text="东风3级"
                     android:textSize="18sp" />
             </LinearLayout>
-            <!--<GridLayout
-                android:id="@+id/gridlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:rowCount="3"
-                android:columnCount="2"
-                android:visibility="invisible"
-                android:background="@drawable/bg_layout">
-
-                &lt;!&ndash;<TextView
-                    android:id="@+id/wendu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_rowSpan="2"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginRight="15dp"
-                    android:textSize="35sp" />&ndash;&gt;
-                &lt;!&ndash;<TextView
-                    android:id="@+id/shidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/air_quality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp" />&ndash;&gt;
-
-                &lt;!&ndash;<TextView
-                    android:id="@+id/degrees"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginRight="15dp"
-                    android:textSize="20sp" />&ndash;&gt;
-
-                &lt;!&ndash;<TextView
-                    android:id="@+id/wind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp" />&ndash;&gt;
-            </GridLayout>-->
 
             <ListView
                 android:id="@+id/zs_list"
