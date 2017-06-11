@@ -3,13 +3,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_weather"
-            android:icon="@mipmap/ic_weather"
-            android:title="天气" />
-        <item
             android:id="@+id/nav_news"
             android:icon="@mipmap/ic_news"
             android:title="新闻" />
+        <item
+            android:id="@+id/nav_weather"
+            android:icon="@mipmap/ic_weather"
+            android:title="天气" />
         <item
             android:id="@+id/nav_jokes"
             android:icon="@mipmap/ic_jokes"
