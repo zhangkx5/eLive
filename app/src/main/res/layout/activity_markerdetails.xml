@@ -33,14 +33,6 @@
                 android:textSize="20sp"
                 android:text="备忘"/>
 
-            <ImageButton
-                android:id="@+id/ib_shark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentEnd="true"
-                android:background="?attr/colorPrimary"
-                android:src="@mipmap/ib_shark"/>
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>

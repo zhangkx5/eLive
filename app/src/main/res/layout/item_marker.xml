@@ -24,6 +24,7 @@
         android:layout_toRightOf="@id/mark_event"
         android:layout_marginLeft="10dp"
         android:text="已经/还有"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"/>
     <TextView
         android:id="@+id/mark_day"

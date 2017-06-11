@@ -40,7 +40,6 @@ public class MarkerDetailsActivity extends SwipeBackActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         ib_back = (ImageButton)findViewById(R.id.ib_back);
-        ib_shark = (ImageButton)findViewById(R.id.ib_shark);
         tv_event = (TextView)findViewById(R.id.tv_event);
         tv_long = (TextView)findViewById(R.id.tv_long);
         tv_date = (TextView)findViewById(R.id.tv_date);
