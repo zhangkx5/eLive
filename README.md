@@ -8,7 +8,7 @@ A Android app that contains news, weather, joke, diary and memo. It can help you
 
 Run with Android Studio 2.3+
 
-## appendix
+## Appendix
 
 Homework of course SE-308 Software Design Projects
 
