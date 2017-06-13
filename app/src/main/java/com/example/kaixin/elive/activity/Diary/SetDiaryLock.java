@@ -1,4 +1,4 @@
-package com.example.kaixin.elive.activity;
+package com.example.kaixin.elive.activity.Diary;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kaixin.elive.R;
+import com.example.kaixin.elive.activity.Main.MainActivity;
 
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
