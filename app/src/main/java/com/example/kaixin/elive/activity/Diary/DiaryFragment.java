@@ -1,4 +1,4 @@
-package com.example.kaixin.elive.fragment;
+package com.example.kaixin.elive.activity.Diary;
 
 import android.content.DialogInterface;
 import android.content.Intent;

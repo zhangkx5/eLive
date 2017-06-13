@@ -11,11 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.kaixin.elive.R;
-import com.example.kaixin.elive.fragment.Jokes.JokesFragment;
-import com.example.kaixin.elive.fragment.DiaryFragment;
-import com.example.kaixin.elive.fragment.MarkerFragment;
-import com.example.kaixin.elive.fragment.News.NewsFragment;
-import com.example.kaixin.elive.fragment.WeatherFragment;
+import com.example.kaixin.elive.activity.Jokes.JokesFragment;
+import com.example.kaixin.elive.activity.Diary.DiaryFragment;
+import com.example.kaixin.elive.activity.Marker.MarkerFragment;
+import com.example.kaixin.elive.activity.News.NewsFragment;
+import com.example.kaixin.elive.activity.Weather.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

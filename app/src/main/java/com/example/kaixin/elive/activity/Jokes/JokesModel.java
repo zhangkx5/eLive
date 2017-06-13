@@ -1,4 +1,4 @@
-package com.example.kaixin.elive.fragment.Jokes;
+package com.example.kaixin.elive.activity.Jokes;
 
 import android.util.Log;
 import com.example.kaixin.elive.bean.JokesBean;

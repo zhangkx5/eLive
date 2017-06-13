@@ -1,4 +1,4 @@
-package com.example.kaixin.elive.fragment.News;
+package com.example.kaixin.elive.activity.News;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

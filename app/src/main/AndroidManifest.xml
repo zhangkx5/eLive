@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.NewsDetailsActivity"/>
+        <activity android:name=".activity.News.NewsDetailsActivity"/>
         <activity android:name=".activity.Marker.MarkerActivity"/>
         <activity android:name=".activity.Marker.MarkerDetailsActivity"/>
         <activity android:name=".activity.Diary.DiaryActivity"
