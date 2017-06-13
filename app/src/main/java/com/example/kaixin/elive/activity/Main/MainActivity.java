@@ -8,7 +8,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.activity.Jokes.JokesFragment;
@@ -21,11 +23,12 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static Context mContext;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mContext = getApplicationContext();
 
@@ -79,21 +82,42 @@ public class MainActivity extends AppCompatActivity
     public void beginNews() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_content, new NewsFragment()).commit();
+        toolbar.setTitle("新闻");
     }
     public void beginDiary() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_content, new DiaryFragment()).commit();
+        toolbar.setTitle("日记");
     }
     public void beginJokes() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_content, new JokesFragment()).commit();
+        toolbar.setTitle("笑话");
     }
     public void beginMarker() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_content, new MarkerFragment()).commit();
+        toolbar.setTitle("备忘");
     }
     public void beginWeather() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_content, new WeatherFragment()).commit();
+        toolbar.setTitle("天气");
+    }
+    private long exitTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime > 2000)) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                toolbar.setTitle("eLive");
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.kaixin.elive.activity.News;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,11 +18,13 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 /**
  * Created by kaixin on 2017/5/11.
  */
 
-public class NewsDetailsActivity extends Activity {
+public class NewsDetailsActivity extends SwipeBackActivity {
     private TextView newsTitle;
     private ImageView newsTopImg, newsTextImg0, newsTextImg1;
     private TextView newsContent;
@@ -37,7 +38,6 @@ public class NewsDetailsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_news_details);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
 
