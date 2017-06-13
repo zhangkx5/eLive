@@ -22,9 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kaixin.elive.Utils.MyDB;
-import com.example.kaixin.elive.activity.DiaryActivity;
+import com.example.kaixin.elive.activity.Diary.DiaryActivity;
 import com.example.kaixin.elive.activity.MainActivity;
-import com.example.kaixin.elive.activity.SetDiaryLock;
+import com.example.kaixin.elive.activity.Diary.SetDiaryLock;
 import com.example.kaixin.elive.adapter.DiaryAdapter;
 import com.example.kaixin.elive.bean.DiaryBean;
 import com.example.kaixin.elive.R;

@@ -1,4 +1,4 @@
-package com.example.kaixin.elive.activity;
+package com.example.kaixin.elive.activity.Diary;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
