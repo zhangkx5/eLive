@@ -13,11 +13,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.kaixin.elive.R;
-import com.example.kaixin.elive.activity.Jokes.JokesFragment;
-import com.example.kaixin.elive.activity.Diary.DiaryFragment;
-import com.example.kaixin.elive.activity.Marker.MarkerFragment;
-import com.example.kaixin.elive.activity.News.NewsFragment;
-import com.example.kaixin.elive.activity.Weather.WeatherFragment;
+import com.example.kaixin.elive.activity.Jokes.view.JokesFragment;
+import com.example.kaixin.elive.activity.Diary.view.DiaryFragment;
+import com.example.kaixin.elive.activity.Marker.view.MarkerFragment;
+import com.example.kaixin.elive.activity.News.view.NewsFragment;
+import com.example.kaixin.elive.activity.Weather.view.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
