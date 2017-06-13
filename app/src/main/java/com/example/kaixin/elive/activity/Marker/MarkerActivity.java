@@ -57,9 +57,6 @@ public class MarkerActivity extends SwipeBackActivity implements IMarkerDetailsV
                 } else if (TextUtils.isEmpty(getDate())){
                     markerDetailsPresenter.DateError();
                 } else {
-                    /*String event = et_event.getText().toString();
-                    String date = tv_date.getText().toString();
-                    String notes = ""+et_notes.getText().toString();*/
                     if (markerBean != null) {
                         markerDetailsPresenter.updateMark(markerBean);
                     } else {
