@@ -23,12 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.News.NewsDetailsActivity"/>
-        <activity android:name=".activity.Marker.MarkerActivity"/>
-        <activity android:name=".activity.Marker.MarkerDetailsActivity"/>
-        <activity android:name=".activity.Diary.DiaryActivity"
+        <activity android:name=".activity.News.view.NewsDetailsActivity"/>
+        <activity android:name=".activity.Marker.view.MarkerActivity"/>
+        <activity android:name=".activity.Marker.view.MarkerDetailsActivity"/>
+        <activity android:name=".activity.Diary.view.DiaryActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activity.Diary.SetDiaryLock"
+        <activity android:name=".activity.Diary.view.SetDiaryLock"
                   android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
