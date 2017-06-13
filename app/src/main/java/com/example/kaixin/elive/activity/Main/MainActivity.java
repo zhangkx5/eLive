@@ -1,4 +1,4 @@
-package com.example.kaixin.elive.activity;
+package com.example.kaixin.elive.activity.Main;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,11 +8,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.kaixin.elive.R;
-import com.example.kaixin.elive.fragment.JokesFragment;
+import com.example.kaixin.elive.fragment.Jokes.JokesFragment;
 import com.example.kaixin.elive.fragment.DiaryFragment;
 import com.example.kaixin.elive.fragment.MarkerFragment;
 import com.example.kaixin.elive.fragment.NewsFragment;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new NewsFragment()).commit();
+        beginNews();
     }
 
     @Override
@@ -59,23 +58,42 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_news) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new NewsFragment()).commit();
+            beginNews();
         } else if (id == R.id.nav_weather) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new WeatherFragment()).commit();
+            beginWeather();
         } else if (id == R.id.nav_jokes) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new JokesFragment()).commit();
+            beginJokes();
         } else if (id == R.id.nav_diary) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new DiaryFragment()).commit();
+            beginDiary();
         } else if (id == R.id.nav_mark) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new MarkerFragment()).commit();
+            beginMarker();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     public static Context getAppContext() {
         return mContext;
+    }
+    public void beginNews() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_content, new NewsFragment()).commit();
+    }
+    public void beginDiary() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_content, new DiaryFragment()).commit();
+    }
+    public void beginJokes() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_content, new JokesFragment()).commit();
+    }
+    public void beginMarker() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_content, new MarkerFragment()).commit();
+    }
+    public void beginWeather() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_content, new WeatherFragment()).commit();
     }
 }

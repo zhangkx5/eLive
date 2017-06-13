@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kaixin.elive.R;
-import com.example.kaixin.elive.activity.MainActivity;
+import com.example.kaixin.elive.activity.Main.MainActivity;
 
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 

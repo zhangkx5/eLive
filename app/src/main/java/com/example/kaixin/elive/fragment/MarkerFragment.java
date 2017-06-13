@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.Utils.MyDB;
-import com.example.kaixin.elive.activity.MainActivity;
+import com.example.kaixin.elive.activity.Main.MainActivity;
 import com.example.kaixin.elive.activity.Marker.MarkerActivity;
 import com.example.kaixin.elive.activity.Marker.MarkerDetailsActivity;
 import com.example.kaixin.elive.adapter.MarkerAdapter;

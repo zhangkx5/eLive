@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kaixin.elive.R;
-import com.example.kaixin.elive.activity.MainActivity;
+import com.example.kaixin.elive.activity.Main.MainActivity;
 import com.example.kaixin.elive.activity.NewsDetailsActivity;
 import com.example.kaixin.elive.adapter.NewsAdapter;
 import com.example.kaixin.elive.bean.NewsBean;

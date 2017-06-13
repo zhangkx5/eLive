@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.kaixin.elive.Utils.MyDB;
-import com.example.kaixin.elive.activity.MainActivity;
+import com.example.kaixin.elive.activity.Main.MainActivity;
 import com.example.kaixin.elive.bean.MarkerBean;
 
 /**

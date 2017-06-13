@@ -13,8 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -23,7 +21,7 @@ import android.widget.Toast;
 
 import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.Utils.WeatherUtils;
-import com.example.kaixin.elive.activity.MainActivity;
+import com.example.kaixin.elive.activity.Main.MainActivity;
 import com.example.kaixin.elive.adapter.ExponentAdapter;
 import com.example.kaixin.elive.adapter.WeatherAdapter;
 import com.example.kaixin.elive.bean.Exponent;
