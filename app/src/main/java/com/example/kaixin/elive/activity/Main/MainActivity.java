@@ -14,7 +14,7 @@ import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.fragment.Jokes.JokesFragment;
 import com.example.kaixin.elive.fragment.DiaryFragment;
 import com.example.kaixin.elive.fragment.MarkerFragment;
-import com.example.kaixin.elive.fragment.NewsFragment;
+import com.example.kaixin.elive.fragment.News.NewsFragment;
 import com.example.kaixin.elive.fragment.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
