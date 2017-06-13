@@ -11,6 +11,6 @@ import com.example.kaixin.elive.bean.MarkerBean;
 public interface IMarkerDetailsPresenter {
     void addMark();
     void updateMark(MarkerBean markerBean);
-    void deleteMark();
+    void deleteMark(String event);
     MarkerBean getMarkerDetails(Intent intent);
 }

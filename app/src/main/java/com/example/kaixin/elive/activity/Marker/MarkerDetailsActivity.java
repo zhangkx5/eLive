@@ -60,7 +60,7 @@ public class MarkerDetailsActivity extends SwipeBackActivity implements
                 builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        markerDetailsPresenter.deleteMark();
+                        markerDetailsPresenter.deleteMark(tv_event.getText().toString());
                         dialogInterface.dismiss();
                         MarkerDetailsActivity.this.finish();
                     }

@@ -62,7 +62,6 @@ public class NewsDetailsActivity extends Activity {
         newsTitle.setText(newsBean.getNewsTitle());
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        int l = Integer.parseInt(newsBean.getNewsTime());
         Date curDate = new Date(System.currentTimeMillis());
         String strDate = simpleDateFormat.format(curDate);
         newsTime.setText(strDate);
@@ -75,7 +74,6 @@ public class NewsDetailsActivity extends Activity {
         String regexbf = "<b>|</b>|<font>|</font>|<strong>|</strong>";
         String regeximg = "(&nbsp;)*<img (.*)/>";
         String regexnbsp = "(&nbsp;&nbsp;&nbsp;&nbsp;)";
-        String regex = "<b>|</b>";
         Pattern patbr = Pattern.compile(regexbr);
         Pattern patbf = Pattern.compile(regexbf);
         Pattern patimg = Pattern.compile(regeximg);
@@ -89,7 +87,6 @@ public class NewsDetailsActivity extends Activity {
         newsbody = matcherimg.replaceAll("");
         Matcher matchernbsp = patnbsp.matcher(newsbody);
         newsbody = matchernbsp.replaceAll("\n");
-
         newsContent.setText(newsbody);
     }
 }

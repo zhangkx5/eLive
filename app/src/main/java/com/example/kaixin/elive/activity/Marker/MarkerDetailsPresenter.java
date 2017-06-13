@@ -1,8 +1,14 @@
 package com.example.kaixin.elive.activity.Marker;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.example.kaixin.elive.bean.MarkerBean;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by kaixin on 2017/6/13.
@@ -32,14 +38,18 @@ public class MarkerDetailsPresenter implements IMarkerDetailsPresenter{
         markerDetailsModel.updateInDB(event, date, notes, markerBean);
     }
     @Override
-    public void deleteMark() {
-        String event = markerDetailsView.getEvent();
+    public void deleteMark(String event) {
+        //String event = markerDetailsView.getEvent();
         markerDetailsModel.deleteInDB(event);
     }
     @Override
     public MarkerBean getMarkerDetails(Intent intent) {
         MarkerBean markerBean = (MarkerBean)intent.getSerializableExtra("markday");
         return markerBean;
+    }
+    public List<MarkerBean> getMarkerLists() {
+        List<MarkerBean> markerBeanList = markerDetailsModel.showMarkerLists();
+        return markerBeanList;
     }
     public void EventError() {
         markerDetailsView.showToast("事件名称不能为空");
