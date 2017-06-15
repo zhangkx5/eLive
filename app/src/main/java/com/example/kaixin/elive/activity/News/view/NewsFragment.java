@@ -1,4 +1,4 @@
-package com.example.kaixin.elive.fragment;
+package com.example.kaixin.elive.activity.News.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -45,17 +45,12 @@ public class NewsFragment extends Fragment {
         return view;
     }
     private void setupViewPager(ViewPager mViewPager) {
-        //Fragment中嵌套使用Fragment一定要使用getChildFragmentManager(),否则会有问题
         MyPagerAdapter adapter = new MyPagerAdapter(getChildFragmentManager());
         adapter.addFragment(NewsSubFragment.newInstance(NEWS_TYPE_TOP), "头条");
         adapter.addFragment(NewsSubFragment.newInstance(NEWS_TYPE_AMUSE), "娱乐");
         adapter.addFragment(NewsSubFragment.newInstance(NEWS_TYPE_MILITARY), "军事");
         adapter.addFragment(NewsSubFragment.newInstance(NEWS_TYPE_TECHNOLOGY), "科技");
         adapter.addFragment(NewsSubFragment.newInstance(NEWS_TYPE_ECONOMICS), "财经");
-        /*for (int i = 0; i < 5; ++i) {
-
-            //adapter.addFragment(new NewsSubFragment(), TITLES[i]);
-        }*/
         mViewPager.setAdapter(adapter);
     }
     public static class MyPagerAdapter extends FragmentPagerAdapter {
