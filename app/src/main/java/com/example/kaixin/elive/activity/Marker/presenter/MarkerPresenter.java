@@ -2,9 +2,9 @@ package com.example.kaixin.elive.activity.Marker.presenter;
 
 import android.content.Intent;
 
-import com.example.kaixin.elive.activity.Marker.view.IMarkerDetailsView;
-import com.example.kaixin.elive.activity.Marker.model.IMarkerDetailsModel;
-import com.example.kaixin.elive.activity.Marker.model.MarkerDetailsModel;
+import com.example.kaixin.elive.activity.Marker.view.IMarkerView;
+import com.example.kaixin.elive.activity.Marker.model.IMarkerModel;
+import com.example.kaixin.elive.activity.Marker.model.MarkerModel;
 import com.example.kaixin.elive.bean.MarkerBean;
 
 import java.util.List;
@@ -13,14 +13,14 @@ import java.util.List;
  * Created by kaixin on 2017/6/13.
  */
 
-public class MarkerDetailsPresenter implements IMarkerDetailsPresenter{
+public class MarkerPresenter implements IMarkerPresenter {
 
-    private IMarkerDetailsView markerDetailsView;
-    private IMarkerDetailsModel markerDetailsModel;
+    private IMarkerView markerDetailsView;
+    private IMarkerModel markerDetailsModel;
 
-    public MarkerDetailsPresenter(IMarkerDetailsView markerDetailsView) {
+    public MarkerPresenter(IMarkerView markerDetailsView) {
         this.markerDetailsView = markerDetailsView;
-        markerDetailsModel = new MarkerDetailsModel();
+        markerDetailsModel = new MarkerModel();
     }
     @Override
     public void addMark() {

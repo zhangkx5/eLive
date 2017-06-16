@@ -8,7 +8,7 @@ import com.example.kaixin.elive.bean.MarkerBean;
  * Created by kaixin on 2017/6/13.
  */
 
-public interface IMarkerDetailsPresenter {
+public interface IMarkerPresenter {
     void addMark();
     void updateMark(MarkerBean markerBean);
     void deleteMark(String event);

@@ -8,7 +8,7 @@ import java.util.List;
  * Created by kaixin on 2017/6/13.
  */
 
-public interface IMarkerDetailsModel {
+public interface IMarkerModel {
     void addInDB(String event, String date, String notes);
     void updateInDB(String event, String date, String notes, MarkerBean markerBean);
     void deleteInDB(String event);

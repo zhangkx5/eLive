@@ -7,9 +7,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.kaixin.elive.R;
+import com.example.kaixin.elive.Utils.CheckNetwork;
+import com.example.kaixin.elive.activity.Main.MainActivity;
 import com.example.kaixin.elive.bean.NewsBean;
 
 import java.text.SimpleDateFormat;
@@ -58,6 +61,10 @@ public class NewsDetailsActivity extends SwipeBackActivity {
         newsSource = (TextView)findViewById(R.id.source);
 
         newsTitle.setText(newsBean.getNewsTitle());
+
+        if (!CheckNetwork.isNetworkAvailable(NewsDetailsActivity.this)) {
+            Toast.makeText(NewsDetailsActivity.this, "请检查网络连接", Toast.LENGTH_SHORT).show();
+        }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date curDate = new Date(System.currentTimeMillis());

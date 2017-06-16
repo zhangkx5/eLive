@@ -21,8 +21,8 @@
         android:id="@+id/mark_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/mark_event"
-        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@+id/mark_day"
+        android:layout_marginRight="10dp"
         android:text="已经/还有"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"/>

@@ -8,6 +8,6 @@ import java.util.ArrayList;
 
 public interface IWeatherPresenter {
     ArrayList<String> getResponse();
-    void postRequest();
+    void postRequest(final String request);
     int setImage(String gif);
 }

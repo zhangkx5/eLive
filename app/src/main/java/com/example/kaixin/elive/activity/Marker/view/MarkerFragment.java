@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.kaixin.elive.R;
 import com.example.kaixin.elive.activity.Main.MainActivity;
-import com.example.kaixin.elive.activity.Marker.presenter.MarkerDetailsPresenter;
+import com.example.kaixin.elive.activity.Marker.presenter.MarkerPresenter;
 import com.example.kaixin.elive.adapter.MarkerAdapter;
 import com.example.kaixin.elive.bean.MarkerBean;
 
@@ -26,12 +26,12 @@ import java.util.List;
  * Created by kaixin on 2017/5/25.
  */
 
-public class MarkerFragment extends Fragment implements IMarkerDetailsView{
+public class MarkerFragment extends Fragment implements IMarkerView {
     private ListView marklv;
     private FloatingActionButton fab;
     private List<MarkerBean> markerBeanList;
     private MarkerAdapter markerAdapter;
-    private MarkerDetailsPresenter markerDetailsPresenter;
+    private MarkerPresenter markerDetailsPresenter;
     String event, date;
 
     @Override
@@ -45,7 +45,7 @@ public class MarkerFragment extends Fragment implements IMarkerDetailsView{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_marker, container, false);
-        markerDetailsPresenter = new MarkerDetailsPresenter(this);
+        markerDetailsPresenter = new MarkerPresenter(this);
         marklv = (ListView)view.findViewById(R.id.marklv);
         fab = (FloatingActionButton)view.findViewById(R.id.fab);
 

@@ -1,16 +1,24 @@
 package com.example.kaixin.elive.activity.Weather.presenter;
 
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.kaixin.elive.Utils.CheckNetwork;
 import com.example.kaixin.elive.Utils.WeatherUtils;
 import com.example.kaixin.elive.activity.Main.MainActivity;
 import com.example.kaixin.elive.activity.Weather.view.IWeatherView;
 import com.example.kaixin.elive.activity.Weather.model.IWeatherModel;
 import com.example.kaixin.elive.activity.Weather.model.WeatherModel;
+import com.example.kaixin.elive.activity.Weather.view.WeatherFragment;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by kaixin on 2017/6/13.
@@ -19,6 +27,8 @@ import java.util.ArrayList;
 public class WeatherPresenter implements IWeatherPresenter{
     private IWeatherView weatherView;
     private IWeatherModel weatherModel;
+
+    private SharedPreferences pref;
 
     public WeatherPresenter(IWeatherView weatherView) {
         this.weatherView = weatherView;
@@ -32,6 +42,7 @@ public class WeatherPresenter implements IWeatherPresenter{
             switch (msg.what) {
                 case UPDATE_CONTENT:
                     response = (ArrayList<String>)msg.obj;
+                    Log.i("-------3", response.toString());
                     String result = response.get(0);
                     if ("查询结果为空".equals(result)) {
                         Toast.makeText(MainActivity.getAppContext(), "当前城市不存在，请重新输入", Toast.LENGTH_SHORT).show();
@@ -57,13 +68,13 @@ public class WeatherPresenter implements IWeatherPresenter{
         }
     };
     @Override
-    public void postRequest() {
+    public void postRequest(final String request) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Message message = new Message();
                 message.what = UPDATE_CONTENT;
-                message.obj = WeatherUtils.postRequest();
+                message.obj = WeatherUtils.postRequest(request);
                 handler.sendMessage(message);
             }
         }).start();
