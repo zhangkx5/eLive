@@ -63,14 +63,18 @@ public class MarkerAdapter extends BaseAdapter {
             e.getErrorOffset();
             Log.d("that Date", thatDate+"");
         }
-        if (curDate > thatDate) {
+        if (curDate < thatDate) {
+            viewHolder.state.setText("还有");
+            long day = (thatDate - curDate)/(24*60*60*1000)+1;
+            viewHolder.day.setText(day+"天");
+        } else if (curDate - thatDate > 1) {
             viewHolder.state.setText("已经");
             long day = (curDate - thatDate)/(24*60*60*1000);
             viewHolder.day.setText(day+"天");
-        } else if (curDate < thatDate) {
-            viewHolder.state.setText("还有");
-            long day = (thatDate - curDate)/(24*60*60*1000);
-            viewHolder.day.setText(day+"天");
+            if (day == 0) {
+                viewHolder.state.setText("");
+                viewHolder.day.setText("今天");
+            }
         } else {
             viewHolder.state.setText(" ");
             viewHolder.day.setText("今天");
@@ -92,11 +96,11 @@ public class MarkerAdapter extends BaseAdapter {
         return date.getTime();
     }
     private long stringToLong(String strTime) throws ParseException {
-        Date date = stringToDate(strTime); // String类型转成date类型
+        Date date = stringToDate(strTime);
         if (date == null) {
             return 0;
         } else {
-            long currentTime = dateToLong(date); // date类型转成long类型
+            long currentTime = dateToLong(date);
             return currentTime;
         }
     }

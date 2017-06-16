@@ -38,7 +38,6 @@ public class MarkerPresenter implements IMarkerPresenter {
     }
     @Override
     public void deleteMark(String event) {
-        //String event = markerDetailsView.getEvent();
         markerDetailsModel.deleteInDB(event);
     }
     @Override
