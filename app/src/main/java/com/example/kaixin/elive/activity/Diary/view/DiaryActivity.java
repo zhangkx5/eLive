@@ -12,9 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kaixin.elive.R;
+import com.example.kaixin.elive.Utils.CheckNetwork;
 import com.example.kaixin.elive.Utils.LocationUtils;
 import com.example.kaixin.elive.Utils.WeatherUtils;
 import com.example.kaixin.elive.activity.Diary.presenter.DiaryPresenter;
+import com.example.kaixin.elive.activity.Main.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,8 +84,9 @@ public class DiaryActivity extends SwipeBackActivity implements IDiaryView {
         ib_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                diaryPresenter.addDiary();
-                DiaryActivity.this.finish();
+                if (diaryPresenter.addDiary()) {
+                    DiaryActivity.this.finish();
+                }
             }
         });
         ib_edit.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +171,9 @@ public class DiaryActivity extends SwipeBackActivity implements IDiaryView {
                 LocationUtils.getCNBylocation(DiaryActivity.this);
                 strCity = LocationUtils.cityName;
             }
-            postRequest(strCity);
+            if (CheckNetwork.isNetworkAvailable(MainActivity.getAppContext())) {
+                postRequest(strCity);
+            }
             diary_content_et.setVisibility(View.VISIBLE);
             diary_content_tv.setVisibility(View.GONE);
             ib_done.setVisibility(View.VISIBLE);

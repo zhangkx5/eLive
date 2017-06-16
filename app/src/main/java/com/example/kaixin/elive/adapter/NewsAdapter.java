@@ -106,10 +106,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             FootViewHolder footViewHolder = (FootViewHolder)holder;
             switch (load_more_status) {
                 case PULLUP_LOAD_MORE:
-                    footViewHolder.foot_view_item_tv.setText("上拉加载");
+                    footViewHolder.foot_view_item_tv.setText("正在加载...");
                     break;
                 case LOADING_MORE:
-                    footViewHolder.foot_view_item_tv.setText("正在加载...");
+                    footViewHolder.foot_view_item_tv.setText("上拉加载");
                     break;
             }
         }

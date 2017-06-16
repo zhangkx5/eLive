@@ -5,5 +5,5 @@ package com.example.kaixin.elive.activity.Diary.presenter;
  */
 
 public interface IDiaryPresenter {
-    void addDiary();
+    Boolean addDiary();
 }

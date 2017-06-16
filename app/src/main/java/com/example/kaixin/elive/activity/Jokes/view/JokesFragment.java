@@ -32,7 +32,6 @@ public class JokesFragment extends Fragment implements IJokesView{
     private int lastVisibleItem;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int pageNumber = 1;
-    private Context mContext;
     private JokesPresenter jokesPresenter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
