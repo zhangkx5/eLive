@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.kaixin.elive.R;
-import com.example.kaixin.elive.activity.Marker.presenter.MarkerDetailsPresenter;
+import com.example.kaixin.elive.activity.Marker.presenter.MarkerPresenter;
 import com.example.kaixin.elive.bean.MarkerBean;
 
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
@@ -21,7 +21,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  */
 
 public class MarkerDetailsActivity extends SwipeBackActivity implements
-        IMarkerDetailsView {
+        IMarkerView {
 
     private Toolbar toolbar;
     private TextView tv_event, tv_long, tv_date, tv_notes;
@@ -29,7 +29,7 @@ public class MarkerDetailsActivity extends SwipeBackActivity implements
     private Button btn_update, btn_delete;
     private MarkerBean markerBean;
 
-    private MarkerDetailsPresenter markerDetailsPresenter;
+    private MarkerPresenter markerDetailsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class MarkerDetailsActivity extends SwipeBackActivity implements
         setContentView(R.layout.activity_markerdetails);
 
         init();
-        markerDetailsPresenter = new MarkerDetailsPresenter(this);
+        markerDetailsPresenter = new MarkerPresenter(this);
         showMarkerDetails();
 
         ib_back.setOnClickListener(new View.OnClickListener() {

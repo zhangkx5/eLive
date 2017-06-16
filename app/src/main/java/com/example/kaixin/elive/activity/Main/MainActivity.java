@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.kaixin.elive.R;
+import com.example.kaixin.elive.activity.About.AboutFragment;
 import com.example.kaixin.elive.activity.Jokes.view.JokesFragment;
 import com.example.kaixin.elive.activity.Diary.view.DiaryFragment;
 import com.example.kaixin.elive.activity.Marker.view.MarkerFragment;
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity
             beginDiary();
         } else if (id == R.id.nav_mark) {
             beginMarker();
+        } else if (id == R.id.nav_about) {
+            beginAbout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -103,6 +106,11 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_content, new WeatherFragment()).commit();
         toolbar.setTitle("天气");
+    }
+    public void beginAbout() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_content, new AboutFragment()).commit();
+        toolbar.setTitle("关于");
     }
     private long exitTime = 0;
     @Override

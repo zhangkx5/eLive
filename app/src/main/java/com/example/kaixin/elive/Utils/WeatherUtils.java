@@ -1,6 +1,10 @@
 package com.example.kaixin.elive.Utils;
 
+import android.content.pm.PackageManager;
 import android.util.Log;
+
+import com.example.kaixin.elive.activity.Diary.view.DiaryActivity;
+import com.example.kaixin.elive.activity.Main.MainActivity;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -25,7 +29,7 @@ public class WeatherUtils {
 
     public static ArrayList<String> list = new ArrayList<>();
 
-    public static ArrayList<String> postRequest() {
+    public static ArrayList<String> postRequest(String request) {
         HttpURLConnection connection = null;
         try {
             Log.i("Key", "Begin the connection");
@@ -37,7 +41,6 @@ public class WeatherUtils {
             connection.setDoOutput(true);
 
             DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-            String request = "广州";
             request = URLEncoder.encode(request, "utf-8");
             out.writeBytes("theCityCode="+ request + "&theUserID=");
 
@@ -68,6 +71,7 @@ public class WeatherUtils {
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(new StringReader(str_xml));
             int eventType = parser.getEventType();
+            list = new ArrayList<>();
             while(eventType != XmlPullParser.END_DOCUMENT) {
                 switch (eventType) {
                     case XmlPullParser.START_TAG:

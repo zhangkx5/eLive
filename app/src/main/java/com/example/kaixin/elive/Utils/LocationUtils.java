@@ -18,7 +18,7 @@ import java.util.List;
 public class LocationUtils {
     private static LocationManager locationManager;
     private static Location location;
-    public static String cityName = "火星";
+    public static String cityName = "广州";
     private static Geocoder geocoder;
 
     public static final LocationListener locationListener = new LocationListener() {
@@ -52,7 +52,7 @@ public class LocationUtils {
                 cityName = queryed_name;
             }
         } else {
-            cityName = "火星";
+            cityName = "广州";
         }
     }
 

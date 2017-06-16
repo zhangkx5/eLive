@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kaixin.elive.R;
-import com.example.kaixin.elive.activity.Marker.presenter.MarkerDetailsPresenter;
+import com.example.kaixin.elive.activity.Marker.presenter.MarkerPresenter;
 import com.example.kaixin.elive.bean.MarkerBean;
 
 import java.text.SimpleDateFormat;
@@ -27,13 +27,13 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  * Created by kaixin on 2017/5/25.
  */
 
-public class MarkerActivity extends SwipeBackActivity implements IMarkerDetailsView {
+public class MarkerActivity extends SwipeBackActivity implements IMarkerView {
     private Toolbar toolbar;
     private EditText et_event, et_notes;
     private TextView tv_date;
     private ImageButton ib_back, ib_ok;
     private MarkerBean markerBean;
-    private MarkerDetailsPresenter markerDetailsPresenter;
+    private MarkerPresenter markerDetailsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class MarkerActivity extends SwipeBackActivity implements IMarkerDetailsV
         setContentView(R.layout.activity_marker);
 
         init();
-        markerDetailsPresenter = new MarkerDetailsPresenter(this);
+        markerDetailsPresenter = new MarkerPresenter(this);
         showMarkerDetails();
 
         ib_back.setOnClickListener(new View.OnClickListener() {

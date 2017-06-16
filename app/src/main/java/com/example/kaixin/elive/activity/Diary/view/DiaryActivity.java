@@ -57,6 +57,7 @@ public class DiaryActivity extends SwipeBackActivity implements IDiaryView {
                             strWeather = "多云";
                         }
                     }
+                    diary_weather.setText(strWeather);
                     break;
                 default:
                     break;
@@ -158,7 +159,7 @@ public class DiaryActivity extends SwipeBackActivity implements IDiaryView {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
             Date curDate = new Date(System.currentTimeMillis());
             strDate = simpleDateFormat.format(curDate);
-            strWeather = "晴";
+            strWeather = "多云";
             strCity = "广州";
             PackageManager pm = getPackageManager();
             boolean permission = (PackageManager.PERMISSION_GRANTED ==
@@ -167,7 +168,7 @@ public class DiaryActivity extends SwipeBackActivity implements IDiaryView {
                 LocationUtils.getCNBylocation(DiaryActivity.this);
                 strCity = LocationUtils.cityName;
             }
-            postRequest();
+            postRequest(strCity);
             diary_content_et.setVisibility(View.VISIBLE);
             diary_content_tv.setVisibility(View.GONE);
             ib_done.setVisibility(View.VISIBLE);
@@ -178,13 +179,13 @@ public class DiaryActivity extends SwipeBackActivity implements IDiaryView {
         diary_weather.setText(strWeather);
         diary_city.setText(strCity);
     }
-    private void postRequest() {
+    private void postRequest(final String request) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Message message = new Message();
                 message.what = UPDATE_CONTENT;
-                message.obj = WeatherUtils.postRequest();
+                message.obj = WeatherUtils.postRequest(request);
                 handler.sendMessage(message);
             }
         }).start();

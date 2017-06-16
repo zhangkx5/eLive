@@ -1,18 +1,29 @@
 package com.example.kaixin.elive.activity.Weather.view;
 
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kaixin.elive.R;
+import com.example.kaixin.elive.Utils.CheckNetwork;
+import com.example.kaixin.elive.Utils.LocationUtils;
+import com.example.kaixin.elive.Utils.WeatherUtils;
 import com.example.kaixin.elive.activity.Main.MainActivity;
 import com.example.kaixin.elive.activity.Weather.presenter.WeatherPresenter;
 import com.example.kaixin.elive.adapter.ExponentAdapter;
@@ -30,7 +41,8 @@ import java.util.regex.Pattern;
 
 public class WeatherFragment extends Fragment implements IWeatherView{
     private WeatherPresenter weatherPresenter;
-    private TextView name, time_update, wendu, shidu, air, degrees, wind;
+    private TextView name, change_city, time_update, wendu, shidu, air, degrees, wind, weather_now;
+    private ImageView weather_img_now;
     private ListView listView;
     private LinearLayout linearLayout;
     private RecyclerView mRecyclerView;
@@ -50,6 +62,7 @@ public class WeatherFragment extends Fragment implements IWeatherView{
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         weatherPresenter = new WeatherPresenter(this);
         name = (TextView)view.findViewById(R.id.name_search);
+        change_city = (TextView)view.findViewById(R.id.change_city);
         listView = (ListView)view.findViewById(R.id.zs_list);
         time_update = (TextView)view.findViewById(R.id.time_update);
         linearLayout = (LinearLayout)view.findViewById(R.id.nowlayout);
@@ -58,12 +71,55 @@ public class WeatherFragment extends Fragment implements IWeatherView{
         air = (TextView)view.findViewById(R.id.air_quality);
         wind = (TextView)view.findViewById(R.id.wind);
         degrees = (TextView)view.findViewById(R.id.degrees);
+        weather_now = (TextView)view.findViewById(R.id.weather_now);
+        weather_img_now = (ImageView)view.findViewById(R.id.weather_img_now);
         mRecyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.getAppContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        weatherPresenter.postRequest();
+        change_city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText et_city = new EditText(MainActivity.getAppContext());
+                et_city.setTextColor(Color.rgb(0, 0, 0));
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("请输入城市名，如：广州");
+                builder.setView(et_city);
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (CheckNetwork.isNetworkAvailable(MainActivity.getAppContext())) {
+                            weatherPresenter.postRequest(et_city.getText().toString());
+                        } else {
+                            Toast.makeText(MainActivity.getAppContext(), "请检查网络连接", Toast.LENGTH_SHORT).show();
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
+        });
+
+        if (CheckNetwork.isNetworkAvailable(MainActivity.getAppContext())) {
+            String request = "广州";
+            PackageManager pm = MainActivity.getAppContext().getPackageManager();
+            boolean permission = (PackageManager.PERMISSION_GRANTED ==
+                    pm.checkPermission("android.permission.ACCESS_FINE_LOCATION", "com.example.kaixin.elive"));
+            if (permission) {
+                LocationUtils.getCNBylocation(MainActivity.getAppContext());
+                request = LocationUtils.cityName;
+            }
+            weatherPresenter.postRequest(request);
+        } else {
+            Toast.makeText(MainActivity.getAppContext(), "请检查网络连接", Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
     @Override
@@ -140,6 +196,8 @@ public class WeatherFragment extends Fragment implements IWeatherView{
     @Override
     public void showNextFiveDay() {
         ArrayList<String> response = weatherPresenter.getResponse();
+        weather_img_now.setImageResource(setWeatherImage(response.get(11)));
+        weather_now.setText(response.get(7).substring(response.get(7).indexOf(" ")+1, response.get(7).length()));
         weather_list = new ArrayList<WeatherBean>();
         WeatherBean first = new WeatherBean(response.get(7).substring(0,response.get(7).indexOf("日")+2),
                 response.get(8),

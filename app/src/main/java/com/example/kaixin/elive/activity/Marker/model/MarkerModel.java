@@ -16,7 +16,7 @@ import java.util.List;
  * Created by kaixin on 2017/6/13.
  */
 
-public class MarkerDetailsModel implements IMarkerDetailsModel{
+public class MarkerModel implements IMarkerModel {
 
     private static final String DATABASE_NAME = "myApp.db";
     private MyDB myDB = new MyDB(MainActivity.getAppContext(), DATABASE_NAME, null, 2);
