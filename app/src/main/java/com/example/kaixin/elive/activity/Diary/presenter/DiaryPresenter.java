@@ -17,10 +17,11 @@ public class DiaryPresenter implements IDiaryPresenter{
         diaryModel = new DiaryModel();
     }
     @Override
-    public void addDiary() {
+    public Boolean addDiary() {
         String strContent = diaryView.getStrContent();
         if (strContent.equals("")) {
             diaryView.showToast("亲，你还没写日记哦..");
+            return false;
         } else {
             String strDate = diaryView.getStrDate();
             String filename = "Diary_"+strDate;
@@ -31,6 +32,7 @@ public class DiaryPresenter implements IDiaryPresenter{
                 String strWeather = diaryView.getStrWeather();
                 diaryModel.addDiaryDB(filename, strDate, strCity, strWeather);
             }
+            return true;
         }
     }
 }

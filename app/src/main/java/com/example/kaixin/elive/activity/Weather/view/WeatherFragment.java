@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,7 @@ import java.util.regex.Pattern;
 
 public class WeatherFragment extends Fragment implements IWeatherView{
     private WeatherPresenter weatherPresenter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView name, change_city, time_update, wendu, shidu, air, degrees, wind, weather_now;
     private ImageView weather_img_now;
     private ListView listView;
@@ -120,8 +122,49 @@ public class WeatherFragment extends Fragment implements IWeatherView{
         } else {
             Toast.makeText(MainActivity.getAppContext(), "请检查网络连接", Toast.LENGTH_SHORT).show();
         }
+
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshWeather();
+            }
+        });
+
         return view;
     }
+
+    public void refreshWeather() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        if (CheckNetwork.isNetworkAvailable(MainActivity.getAppContext())) {
+            String request = name.getText().toString();
+            if ("".equals(request)) {
+                request = "广州";
+                PackageManager pm = MainActivity.getAppContext().getPackageManager();
+                boolean permission = (PackageManager.PERMISSION_GRANTED ==
+                        pm.checkPermission("android.permission.ACCESS_FINE_LOCATION", "com.example.kaixin.elive"));
+                if (permission) {
+                    LocationUtils.getCNBylocation(MainActivity.getAppContext());
+                    request = LocationUtils.cityName;
+                }
+            }
+            weatherPresenter.postRequest(request);
+        } else {
+            Toast.makeText(MainActivity.getAppContext(), "请检查网络连接", Toast.LENGTH_SHORT).show();
+        }
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
     @Override
     public void setVisibility(String where, String timestr, String degr) {
         linearLayout.setVisibility(View.VISIBLE);
