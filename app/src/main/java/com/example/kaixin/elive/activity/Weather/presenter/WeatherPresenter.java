@@ -42,7 +42,6 @@ public class WeatherPresenter implements IWeatherPresenter{
             switch (msg.what) {
                 case UPDATE_CONTENT:
                     response = (ArrayList<String>)msg.obj;
-                    Log.i("-------3", response.toString());
                     String result = response.get(0);
                     if ("查询结果为空".equals(result)) {
                         Toast.makeText(MainActivity.getAppContext(), "当前城市不存在，请重新输入", Toast.LENGTH_SHORT).show();
